@@ -1,5 +1,6 @@
 defmodule Szurupull.UploadView do
   use SzurupullWeb, :view
+  require Ecto.Query
 
   def render("index.json", %{uploads: uploads}) do
     Enum.map(uploads, &upload_json/1)
@@ -33,11 +34,22 @@ defmodule Szurupull.UploadView do
     }
   end
 
+  def already_uploaded?(upload) do
+    with url <- to_string(upload.source) do
+      Szurupull.Upload
+      |> Ecto.Query.where([u], u.url == ^url)
+      |> Szurupull.Repo.one
+      |> (&(!is_nil &1)).()
+    end
+  end
+
   def szuru_upload_json(upload) do
     %{
+      already_uploaded: already_uploaded?(upload),
       source: to_string(upload.source),
       tags: Enum.map(upload.tags, &szuru_tag_json/1),
-      uri: to_string(upload.uri),
+      url: to_string(upload.uri),
+      preview_url: to_string(upload.preview_uri),
       safety: Atom.to_string(upload.safety),
       version: upload.version
     }

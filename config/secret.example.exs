@@ -1,10 +1,19 @@
 use Mix.Config
 
 config :extwitter, :oauth, [
-   consumer_key: "",
-   consumer_secret: "",
-   access_token: "",
-   access_token_secret: ""
+   consumer_key: "key",
+   consumer_secret: "secret",
+   access_token: "key",
+   access_token_secret: "secret"
 ]
-config :to_booru, pixiv_username: ""
-config :to_booru, pixiv_password: ""
+config :to_booru, pixiv_username: "username"
+config :to_booru, pixiv_password: "password"
+
+
+config :szurupull, szurubooru_host: "https://example.com"
+config :szurupull, szurubooru_username: "username"
+config :szurupull, szurubooru_api_token: "password"
+
+config :szurupull, :basic_auth,
+  username: "szurupull_username",
+  password: "szurupull_password"
