@@ -39,10 +39,6 @@ defmodule SzurupullWeb.Endpoint do
     param_key: "request_logger",
     cookie_key: "request_logger"
 
-  if Mix.env == :prod do
-    plug Plug.SSL
-  end
-
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 

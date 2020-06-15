@@ -9,13 +9,8 @@ WORKDIR /app
 # install Hex + Rebar
 RUN mix do local.hex --force, local.rebar --force
 
-ARG DATABASE_URL
-ARG SECRET_KEY_BASE
-
 # set build ENV
 ENV MIX_ENV=prod
-ENV DATABASE_URL $DATABASE_URL
-ENV SECRET_KEY_BASE $SECRET_KEY_BASE
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
