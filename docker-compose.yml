@@ -1,0 +1,38 @@
+version: "3"
+
+networks:
+  szurupull_net:
+    external: false
+
+services:
+  app:
+    image: szurupull:0.1.0
+    build:
+      context: .
+      args:
+        - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+        - DATABASE_URL=ecto://postgres:postgres@db/postgres
+    environment:
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - DATABASE_HOST=db
+      - DATABASE_USER=postgres
+      - DATABASE_DB=postgres
+      - DATABASE_URL=ecto://postgres:postgres@db/postgres
+    ports:
+      - 4000:4000
+    networks:
+      - szurupull_net
+    depends_on:
+      - db
+
+  db:
+    image: postgres:9.6
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    networks:
+      - szurupull_net
+

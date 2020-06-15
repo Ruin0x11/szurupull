@@ -45,7 +45,7 @@ defmodule Szurupull.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:to_booru, path: "/home/hiro/build/work/to_booru"},
+      {:to_booru, github: "Ruin0x11/to_booru"},
       {:ecto_enum, "~> 1.4"},
       {:html_entities, "~> 0.3"},
 
