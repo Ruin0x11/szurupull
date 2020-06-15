@@ -14,6 +14,10 @@ defmodule Szurupull.UploadView do
     Enum.map(szuru_uploads, &szuru_upload_json/1)
   end
 
+  def render("check.json", %{scraper: scraper}) do
+    %{ scraper: scraper }
+  end
+
   def upload_json(upload) do
     %{
       id: upload.id,

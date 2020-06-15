@@ -26,8 +26,10 @@ defmodule SzurupullWeb.Router do
 
   scope "/api", Szurupull do
     pipe_through [:protected, :api]
+
     resources "/uploads", UploadController, only: [:index, :create]
     get "/uploads/extract", UploadController, :extract, as: :extract
+    get "/uploads/check", UploadController, :check, as: :check
   end
 
   # Other scopes may use custom stacks.

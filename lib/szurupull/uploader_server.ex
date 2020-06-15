@@ -46,8 +46,8 @@ defmodule Szurupull.UploaderServer do
   end
 
   @impl true
-  def handle_info({:DOWN, ref, :process, _pid, reason}, {monitors}) do
-    {{upload, szuru_upload}, monitors} = Map.pop(monitors, ref)
+  def handle_info({:DOWN, ref, :process, _pid, _reason}, {monitors}) do
+    {{upload, _}, monitors} = Map.pop(monitors, ref)
     Logger.info("Finished: #{upload.id} #{upload.url}")
     Szurupull.Upload.changeset(upload, %{status: :succeeded})
     |> Szurupull.Repo.update!
