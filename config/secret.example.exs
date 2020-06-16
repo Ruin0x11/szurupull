@@ -11,6 +11,11 @@ config :to_booru, pixiv_password: "password"
 
 config :to_booru, danbooru2_tag_lookup_host: "https://danbooru.donmai.us"
 
+config :to_booru, credentials: [
+  {~r/yande\.re/, %{username: "", password: ""}},
+  {~r/danbooru\.donmai\.us/, %{username: "", password: ""}}
+]
+
 config :szurupull, szurubooru_host: "https://example.com"
 config :szurupull, szurubooru_username: "username"
 config :szurupull, szurubooru_api_token: "password"
