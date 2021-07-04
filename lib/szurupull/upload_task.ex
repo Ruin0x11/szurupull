@@ -42,12 +42,12 @@ defmodule Szurupull.UploadTask do
     }
   end
 
-  defp download_image(szuru_upload) do
+  defp download_image(szuru_upload, headers) do
     with mod <- ToBooru.Scraper.for_uri(szuru_upload.source) do
       resp = if function_exported?(mod, :get_image, 1) do
         mod.get_image(szuru_upload.uri)
       else
-        Tesla.get(Tesla.client([]), to_string(szuru_upload.uri), headers: [{"referrer", to_string(szuru_upload.source)}])
+        Tesla.get(Tesla.client([]), to_string(szuru_upload.uri), headers: headers)
       end
       case resp do
         {:ok, image} ->

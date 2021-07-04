@@ -8,9 +8,10 @@ defmodule Szurupull.UploadController do
     render conn, "index.json", uploads: uploads
   end
 
-  def create(conn, %{"url" => url}) do
+  def create(conn, %{"url" => url} = params) do
+    params = Map.merge(%{"headers" => %{}}, params)
     case Repo.get_by(Upload, url: url) do
-      nil -> case Repo.insert(Upload.changeset(%Upload{url: url}, %{})) do
+      nil -> case Repo.insert(Upload.changeset(%Upload{url: url, headers: params["headers"]}, %{})) do
                {:ok, upload} ->
                  GenServer.cast(Szurupull.UploaderServer, {:queue, upload})
                  render(conn, "create.json", upload: upload)

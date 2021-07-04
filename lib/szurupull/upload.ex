@@ -8,6 +8,7 @@ defmodule Szurupull.Upload do
     field :pools, {:array, :string}, default: []
     field :status, StatusEnum, default: :new
     field :error, :string
+    field :headers, {:map, :string}, default: %{}
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule Szurupull.Upload do
   @doc false
   def changeset(upload, attrs) do
     upload
-    |> cast(attrs, [:url, :extra_tags, :pools, :status, :error])
+    |> cast(attrs, [:url, :extra_tags, :pools, :status, :error, :headers])
     |> validate_required([:url, :status, :extra_tags, :pools])
     |> unique_constraint(:url)
   end
