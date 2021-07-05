@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :szurupull,
-  ecto_repos: [Szurupull.Repo]
+  ecto_repos: [Szurupull.Repo],
+  test_pages: ["https://danbooru.donmai.us/posts/472445"]
 
 # Configures the endpoint
 config :szurupull, SzurupullWeb.Endpoint,

@@ -1,0 +1,9 @@
+<div class="test-container">
+  <%= for {ref, data} <- @monitors do %>
+      <%= if data.state == :loading do %>
+      <% else %>
+      <%= render_extract_result(data.result) %>
+      <% end %>
+
+      <% end %>
+</div>

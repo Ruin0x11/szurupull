@@ -6,8 +6,7 @@ config :extwitter, :oauth, [
    access_token: "key",
    access_token_secret: "secret"
 ]
-config :to_booru, pixiv_username: "username"
-config :to_booru, pixiv_password: "password"
+config :to_booru, pixiv_refresh_token: ""
 
 config :to_booru, danbooru2_tag_lookup_host: "https://danbooru.donmai.us"
 

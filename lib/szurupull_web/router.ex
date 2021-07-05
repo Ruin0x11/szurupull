@@ -1,5 +1,6 @@
 defmodule SzurupullWeb.Router do
   use SzurupullWeb, :router
+  import Phoenix.LiveView.Router
   import Plug.BasicAuth
 
   pipeline :browser do
@@ -8,6 +9,7 @@ defmodule SzurupullWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_root_layout, {SzurupullWeb.LayoutView, :root}
   end
 
   pipeline :protected do
@@ -19,9 +21,10 @@ defmodule SzurupullWeb.Router do
   end
 
   scope "/", SzurupullWeb do
-    pipe_through :browser
+    pipe_through [:protected, :browser]
 
     get "/", PageController, :index
+    live "/test", TestLive.Show, :show, as: :test_live
   end
 
   scope "/api", Szurupull do
