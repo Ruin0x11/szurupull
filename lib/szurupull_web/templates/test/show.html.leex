@@ -1,0 +1,15 @@
+<div class="test-container">
+  <%= for {_, data} <- @monitors do %>
+  <div class="result-container">
+      <div>URL: <%= data.url %></div>
+      <%= case data.state do %>
+      <% :success -> %>
+      <%= render_extract_result(data.result) %>
+      <% :failure -> %>
+      <div>Failure: <%= inspect(data.result) %></div>
+      <% :loading -> %>
+      <div>Loading</div>
+      <% end %>
+    </div>
+      <% end %>
+</div>

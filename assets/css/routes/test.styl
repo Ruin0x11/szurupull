@@ -1,0 +1,132 @@
+.test-container
+    -webkit-column-count: 3;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    3;
+    -moz-column-gap:      0px;
+    column-count:         3;
+    column-gap:           0px;
+    @media (max-width: 800px)
+       -moz-column-count:    2;
+       -webkit-column-count: 2;
+       column-count:         2;
+    @media (max-width: 400px)
+       -moz-column-count:    1;
+       -webkit-column-count: 1;
+       column-count:         1;
+
+.result-container
+    height: 300px;
+    overflow: auto;
+    margin: 10px;
+
+.image-list
+    height: 250px;
+
+.left
+    display: block;
+    float: left;
+    width: 50%;
+    padding-right: 15px;
+
+.source-url
+    font-size: 10px;
+    overflow-wrap: anywhere;
+
+.tag
+    font-size: 12px;
+
+.tag.general
+    color: hsl(213, 100%, 50%);
+
+.tag.copyright
+    color: #A0A;
+
+.tag.character
+    color: #0A0;
+
+.tag.artist
+    color: #A00;
+
+.tag.meta
+    color: #F80;
+
+.tag.faults
+    color: #FF2020;
+
+.tag.batch
+    color: #440055;
+
+.image
+    float: right;
+    display: block;
+    width: 50%;
+
+.image img
+    width: 100%;
+
+.source
+
+.container
+    height: auto;
+    width: 100%;
+    display: table;
+
+h3
+    margin: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+
+.overlay
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+
+.loader,
+.loader:after
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+
+.loader
+    margin: -5em -5em;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-left: 1.1em solid #ffffff;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+    left: 50%;
+    align-self: center;
+    top: 50%;
+
+.hidden
+    display: none;
+
+@-webkit-keyframes load8
+    0%
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+
+    100%
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+
+
+@keyframes load8
+    0%
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+
+    100%
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
