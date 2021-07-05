@@ -30,7 +30,7 @@ defmodule SzurupullWeb.UploadController do
   end
 
   def extract(conn, %{"url" => url}) do
-    szuru_uploads = ToBooru.extract_uploads(url, no_infer: true)
+    szuru_uploads = ToBooru.extract_uploads(url)
     render conn, "extract.json", szuru_uploads: szuru_uploads
   end
 
