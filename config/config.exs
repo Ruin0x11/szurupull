@@ -18,6 +18,15 @@ config :szurupull,
     "https://upload.wikimedia.org/wikipedia/commons/e/e1/Bruck_L1400826.jpg?download"
   ]
 
+# List of conversions from Pixiv to szurubooru tags, in case those tags aren't
+# available in the Danbooru 2 instance.
+config :to_booru, :tag_lookup_overrides, %{
+  "メイキング" => [%{name: "making_of", category: :tutorial}],
+  "講座"       => [%{name: "drawing_course", category: :tutorial}],
+  "目の描き方" => [%{name: "how_to", category: :tutorial}, %{name: "how_to_draw_eyes", category: :tutorial}],
+  "構図" =>       [%{name: "composition", category: :tutorial}]
+}
+
 # Configures the endpoint
 config :szurupull, SzurupullWeb.Endpoint,
   url: [host: "localhost"],
