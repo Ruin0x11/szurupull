@@ -1,6 +1,7 @@
 defmodule SzurupullWeb.UploadLive.Index do
   use SzurupullWeb, :live_view
 
+  require Ecto.Query
   alias Szurupull.Repo
   alias Szurupull.Upload
   alias SzurupullWeb.UploadView
@@ -43,6 +44,6 @@ defmodule SzurupullWeb.UploadLive.Index do
   end
 
   defp list_uploads do
-    Repo.all(Upload)
+    Upload |> Ecto.Query.order_by([u], desc: u.updated_at) |> Repo.all
   end
 end

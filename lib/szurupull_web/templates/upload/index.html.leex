@@ -22,7 +22,6 @@
         <td>
           <span><%= live_redirect "Show", to: Routes.upload_show_path(@socket, :show, upload) %></span>
           <span><%= link "Reupload", to: "#", phx_click: "reupload", phx_value_id: upload.id %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: upload.id, data: [confirm: "Are you sure?"] %></span>
         </td>
       </tr>
     <% end %>
