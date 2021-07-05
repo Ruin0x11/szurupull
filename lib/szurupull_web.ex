@@ -24,6 +24,7 @@ defmodule SzurupullWeb do
       import Plug.Conn
       import SzurupullWeb.Gettext
       alias SzurupullWeb.Router.Helpers, as: Routes
+      import SzurupullWeb.ControllerHelpers
     end
   end
 
@@ -42,12 +43,28 @@ defmodule SzurupullWeb do
     end
   end
 
+  def live_view do
+    quote do
+      use Phoenix.LiveView, layout: {SzurupullWeb.LayoutView, "live.html"}
+      import SzurupullWeb.LiveHelpers
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Helpers
     end
   end
 
@@ -69,8 +86,10 @@ defmodule SzurupullWeb do
       import SzurupullWeb.ErrorHelpers
       import SzurupullWeb.Gettext
       alias SzurupullWeb.Router.Helpers, as: Routes
+      import Phoenix.LiveView.Helpers
     end
   end
+
 
   @doc """
   When used, dispatch to the appropriate controller/view/etc.

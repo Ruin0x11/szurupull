@@ -1,1 +1,7 @@
-<%= @inner_content %>
+<main role="main" class="container">
+  <div class="alert-container">
+    <p class="alert alert-info" role="alert"><%= live_flash(@flash, :info) %></p>
+    <p class="alert alert-danger" role="alert"><%= live_flash(@flash, :error) %></p>
+  </div>
+  <%= @inner_content %>
+</main>

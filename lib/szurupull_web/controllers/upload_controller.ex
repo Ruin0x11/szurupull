@@ -1,4 +1,4 @@
-defmodule Szurupull.UploadController do
+defmodule SzurupullWeb.UploadController do
   use SzurupullWeb, :controller
 
   alias Szurupull.{Repo, Upload}
@@ -18,6 +18,9 @@ defmodule Szurupull.UploadController do
                  conn
                  |> put_status(400)
                  |> render(SzurupullWeb.ChangesetView, "error.json", changeset: changeset)
+               {:error, _err} ->
+                 conn
+                 |> render_error(400)
              end
       upload ->
         GenServer.cast(Szurupull.UploaderServer, {:queue, upload})

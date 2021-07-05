@@ -1,4 +1,4 @@
-defmodule Szurupull.UploadView do
+defmodule SzurupullWeb.UploadView do
   use SzurupullWeb, :view
   require Ecto.Query
 

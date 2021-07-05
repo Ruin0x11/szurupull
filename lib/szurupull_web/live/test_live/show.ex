@@ -1,16 +1,16 @@
 defmodule SzurupullWeb.TestLive.Show do
-  use Phoenix.LiveView, layout: {SzurupullWeb.LayoutView, "live.html"}
+  use SzurupullWeb, :live_view
   alias SzurupullWeb.TestView
   alias SzurupullWeb.Router.Helpers, as: Routes
   require Logger
 
   @impl true
   def mount(_params, _session, socket) do
-    pages = Application.get_env(:szurupull, :test_pages)
+    urls = Application.get_env(:szurupull, :test_urls)
 
-    monitors = Enum.map(pages, fn page ->
-      %Task{ref: ref} = Task.Supervisor.async(Szurupull.TaskSupervisor, SzurupullWeb.TestLive.TestTask, :test, [page, socket])
-      {ref, %{page: page, state: :loading, result: nil}}
+    monitors = Enum.map(urls, fn url ->
+      %Task{ref: ref} = Task.Supervisor.async(Szurupull.TaskSupervisor, SzurupullWeb.TestLive.TestTask, :test, [url, socket])
+      {ref, %{url: url, state: :loading, result: nil}}
     end)
     |> Enum.into(%{})
 
@@ -33,11 +33,17 @@ defmodule SzurupullWeb.TestLive.Show do
  end
 
   @impl true
-  def handle_info({:DOWN, ref, :process, _pid, reason}, %{assigns: %{monitors: monitors}} = socket) do
+  def handle_info({:DOWN, ref, :process, _pid, _reason}, %{assigns: %{monitors: monitors}} = socket) do
     case Map.get(monitors, ref) do
       %{state: :loading} -> update(ref, :failure, :DOWN, socket)
       _ -> {:noreply, socket}
     end
+  end
+
+  @impl true
+  def handle_info(message, socket) do
+    Logger.warn("Unhandled message: #{inspect(message)} #{inspect(socket)}")
+    {:noreply, socket}
   end
 
   defp update(ref, state, result, %{assigns: %{monitors: monitors}} = socket) do
@@ -46,12 +52,6 @@ defmodule SzurupullWeb.TestLive.Show do
     Logger.warn("Task ended: #{inspect(state)} #{inspect(result)}")
     {:noreply, assign(socket, monitors: monitors)}
   end
-
-  @impl true
-  def handle_info(message, socket) do
-    Logger.warn("Unhandled message: #{inspect(message)} #{inspect(socket)}")
-    {:noreply, socket}
-  end
 end
 
 defmodule SzurupullWeb.TestLive.TestTask do
@@ -59,7 +59,7 @@ defmodule SzurupullWeb.TestLive.TestTask do
 
   def test(url, socket) do
     result = Tesla.client([
-      Tesla.Middleware.JSON,
+      {Tesla.Middleware.JSON, [engine: Jason, engine_opts: [keys: :atoms]]},
       {Tesla.Middleware.BaseUrl, SzurupullWeb.Endpoint.url()},
       {Tesla.Middleware.BasicAuth, Application.get_env(:szurupull, :basic_auth)}
     ])
@@ -71,7 +71,7 @@ defmodule SzurupullWeb.TestLive.TestTask do
       else
         {:failure, env}
       end
-      {:err, error} -> {:failure, error}
+      {:error, error} -> {:failure, error}
     end
   end
 end

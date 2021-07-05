@@ -25,9 +25,12 @@ defmodule SzurupullWeb.Router do
 
     get "/", PageController, :index
     live "/test", TestLive.Show, :show, as: :test_live
+    live "/uploads", UploadLive.Index, :index
+    live "/uploads/:id", UploadLive.Show, :show
+
   end
 
-  scope "/api", Szurupull do
+  scope "/api", SzurupullWeb do
     pipe_through [:protected, :api]
 
     resources "/uploads", UploadController, only: [:index, :create]

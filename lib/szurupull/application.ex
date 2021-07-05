@@ -18,7 +18,7 @@ defmodule Szurupull.Application do
       # Start a worker by calling: Szurupull.Worker.start_link(arg)
       # {Szurupull.Worker, arg}
       {Szurupull.UploaderServer, []},
-      {Task.Supervisor, name: Szurupull.TaskSupervisor, restart: :temporary}
+      {Task.Supervisor, name: Szurupull.TaskSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
