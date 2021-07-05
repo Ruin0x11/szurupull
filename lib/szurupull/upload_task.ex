@@ -20,7 +20,7 @@ defmodule Szurupull.UploadTask do
       if env.status == 200 do
         {:ok, env}
       else
-        {:err, env.body.description}
+        {:err, env.body["description"]}
       end
     end
   end
