@@ -1,0 +1,29 @@
+<h1>Listing Uploads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Status</th>
+      <th>Error</th>
+      <th>Last Updated</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="uploads">
+    <%= for upload <- @uploads do %>
+      <tr id="upload-<%= upload.id %>", class="upload-status-<%= upload.status %>">
+        <td><%= upload.url %></td>
+        <td><%= upload.status %></td>
+        <td><%= upload.error %></td>
+        <td><%= upload.updated_at %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.upload_show_path(@socket, :show, upload) %></span>
+          <span><%= link "Reupload", to: "#", phx_click: "reupload", phx_value_id: upload.id %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,22 @@
+<h1>Show Upload</h1>
+
+<ul>
+
+  <li>
+    <strong>URL:</strong>
+    <%= @upload.url %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @upload.status %>
+  </li>
+
+  <li>
+    <strong>Error:</strong>
+    <%= @upload.error %>
+  </li>
+
+</ul>
+
+<span><%= live_redirect "Back", to: Routes.upload_index_path(@socket, :index) %></span>

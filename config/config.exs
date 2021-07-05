@@ -8,7 +8,15 @@
 use Mix.Config
 
 config :szurupull,
-  ecto_repos: [Szurupull.Repo]
+  ecto_repos: [Szurupull.Repo],
+  test_urls: [
+    "https://www.pixiv.net/artworks/89023335",
+    "https://twitter.com/taktwi/status/1411323853263937537",
+    "https://danbooru.donmai.us/posts/472445",
+    "https://yande.re/post/show/760737",
+    "https://gelbooru.com/index.php?page=post&s=view&id=6235985",
+    "https://upload.wikimedia.org/wikipedia/commons/e/e1/Bruck_L1400826.jpg?download"
+  ]
 
 # Configures the endpoint
 config :szurupull, SzurupullWeb.Endpoint,

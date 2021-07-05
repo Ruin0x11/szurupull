@@ -1,10 +1,11 @@
-defmodule Szurupull.UploadController do
+defmodule SzurupullWeb.UploadController do
   use SzurupullWeb, :controller
 
+  require Ecto.Query
   alias Szurupull.{Repo, Upload}
 
   def index(conn, _params) do
-    uploads = Repo.all(Upload)
+    uploads = Upload |> Ecto.Query.order_by([u], desc: u.updated_at) |> Repo.all
     render conn, "index.json", uploads: uploads
   end
 
@@ -18,6 +19,9 @@ defmodule Szurupull.UploadController do
                  conn
                  |> put_status(400)
                  |> render(SzurupullWeb.ChangesetView, "error.json", changeset: changeset)
+               {:error, _err} ->
+                 conn
+                 |> render_error(400)
              end
       upload ->
         GenServer.cast(Szurupull.UploaderServer, {:queue, upload})
