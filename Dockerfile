@@ -1,7 +1,7 @@
-FROM elixir:1.10.3-alpine as build
+FROM elixir:1.11.3-alpine as build
 
 # install build dependencies
-RUN apk add --update git build-base nodejs npm yarn python
+RUN apk add --update git build-base nodejs npm yarn py-pip
 
 RUN mkdir /app
 WORKDIR /app
@@ -35,13 +35,14 @@ RUN mix compile
 RUN mix release
 
 # prepare release image
-FROM alpine:3.9 AS app
+FROM alpine:3.13 AS app
 
 # install runtime dependencies
 RUN apk add --update bash openssl postgresql-client curl
 
 EXPOSE 4000
 ENV MIX_ENV=prod
+ENV ERL_INETRC=/app/erl_inetrc
 
 # prepare app directory
 RUN mkdir /app
@@ -50,6 +51,7 @@ WORKDIR /app
 # copy release to app container
 COPY --from=build /app/_build/prod/rel/szurupull .
 COPY entrypoint.sh .
+COPY erl_inetrc .
 RUN chown -R nobody: /app
 USER nobody
 

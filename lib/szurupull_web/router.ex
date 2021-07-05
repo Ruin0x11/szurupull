@@ -11,7 +11,7 @@ defmodule SzurupullWeb.Router do
   end
 
   pipeline :protected do
-    plug :basic_auth, Application.compile_env(:szurupull, :basic_auth)
+    plug :basic_auth, Application.get_env(:szurupull, :basic_auth)
   end
 
   pipeline :api do
