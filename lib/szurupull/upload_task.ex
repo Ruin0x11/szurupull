@@ -20,7 +20,7 @@ defmodule Szurupull.UploadTask do
       if env.status == 200 do
         {:ok, env}
       else
-        {:err, env.body["description"]}
+        {:error, env.body["description"]}
       end
     end
   end
@@ -42,11 +42,11 @@ defmodule Szurupull.UploadTask do
                 Logger.info("Updating post with new data: #{to_string(szuru_upload.uri)}")
                 update_post(client, existing_post.body, metadata, image)
               else
-                {:err, existing_post.body["description"]}
+                {:error, existing_post.body["description"]}
               end
             end
           else
-            {:err, env.body["description"]}
+            {:error, env.body["description"]}
           end
         end
       end
