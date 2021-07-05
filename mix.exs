@@ -45,6 +45,7 @@ defmodule Szurupull.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:hackney, "~> 1.7"},
       {:plug_cowboy, "~> 2.0"},
       {:to_booru, github: "Ruin0x11/to_booru"},
       {:ecto_enum, "~> 1.4"},
