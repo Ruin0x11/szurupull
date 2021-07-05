@@ -99,6 +99,5 @@ defmodule Szurupull.UploadTask do
   def run(szuru_upload) do
     client()
     |> upload(szuru_upload)
-    |> IO.inspect
   end
 end
